@@ -16,12 +16,16 @@ endif()
 set(${PROJECT}_INCLUDE_DIR
   ${SOURCE_DIR} CACHE STRING "${PROJECT} include directory")
 
-# -Wmissing-declarations delete because it would not make Qt Resource
-# Files compiles
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wredundant-decls \
--Wcast-align -Wmissing-include-dirs -Wswitch-enum -Wswitch-default \
--Wextra -Wall -Werror -Winvalid-pch -Wredundant-decls -Wformat=2 \
--Wmissing-format-attribute -Wformat-nonliteral")
+if (NOT MSVC)
+
+  # -Wmissing-declarations delete because it would not make Qt Resource
+  # Files compiles
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wredundant-decls \
+  -Wcast-align -Wmissing-include-dirs -Wswitch-enum -Wswitch-default \
+  -Wextra -Wall -Werror -Winvalid-pch -Wredundant-decls -Wformat=2 \
+  -Wmissing-format-attribute -Wformat-nonliteral")
+
+endif()
 
 option(WITH_UNIT_TESTS "enable building unit test executable" OFF)
 #option(WITH_BENCHMARK "enable building benchmark executable" OFF)
