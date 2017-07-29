@@ -19,6 +19,7 @@ QCron()
 
 QCron::
 QCron(const QString & pattern)
+    : _expression(pattern)
 {
     _init();
     _parsePattern(pattern);

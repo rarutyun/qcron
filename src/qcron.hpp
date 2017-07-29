@@ -20,6 +20,9 @@ public:
 
     const QString & error() const
         { return _error; }
+        
+    const QString & expression() const
+        { return _expression; }
 
     // Features.
 
@@ -34,6 +37,7 @@ signals:
     void deactivated();
 
 private:
+    QString _expression;
     bool _is_valid;
     bool _is_active;
     QString _error;
