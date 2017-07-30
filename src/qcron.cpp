@@ -18,14 +18,14 @@ QCron()
 /******************************************************************************/
 
 QCron::
-QCron(const QString & pattern, bool parseOnly)
+QCron(const QString & pattern, QDateTime after, bool parseOnly)
     : _expression(pattern)
 {
     _init();
     _parsePattern(pattern);
     if (!parseOnly)
     {
-        _checkState();
+        _checkState(after);
     }
 }
 
@@ -56,10 +56,18 @@ _init()
 
 void
 QCron::
-_checkState()
+_checkState(QDateTime after)
 {
+    if (after.isNull())
+    {
+        after = QDateTime::currentDateTime();
+    }
+    else
+    {
+        after.addSecs(60); // add one minute because we need `after`
+    }
     int interval_ms = 0;
-    if (match(QDateTime::currentDateTime()))
+    if (match(after))
     {
         emit activated();
         _is_active = true;

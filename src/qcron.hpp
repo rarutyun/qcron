@@ -11,7 +11,7 @@ class QCron : public QObject
 
 public:
     QCron();
-    QCron(const QString & pattern, bool parseOnly = false);
+    QCron(const QString & pattern, QDateTime after = QDateTime(), bool parseOnly = false);
     ~QCron();
 
     // Accessors.
@@ -52,7 +52,7 @@ private:
     void _process(QDateTime & dt, EField field);
 
 private slots:
-    void _checkState();
+    void _checkState(QDateTime after = QDateTime());
 };
 
 #endif
