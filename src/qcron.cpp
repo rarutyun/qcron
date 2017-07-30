@@ -248,7 +248,15 @@ catchUp(QDateTime & dt, EField field, int value)
         }
         else if (MINUTE != field)
         {
-            int max = _fields[field].getMax();
+            int max;
+            if (DOM == field)
+            {
+                max = dt.date().daysInMonth();
+            }
+            else
+            {
+                max = _fields[field].getMax();
+            }
             add(dt, field, (max - current_time_unit + value));
         }
     }
