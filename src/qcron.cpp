@@ -66,6 +66,8 @@ _checkState(QDateTime after)
     {
         after = after.addSecs(60); // add one minute because we need `after`
     }
+    // strip out secs and msecs to produce correct time grid
+    after = after.addMSecs(-(after.time().msec() + 1000 * after.time().second()));
     int interval_ms = 0;
     if (match(after))
     {
@@ -80,7 +82,7 @@ _checkState(QDateTime after)
             emit deactivated();
             _is_active = false;
         }
-        interval_ms = QDateTime::currentDateTime().secsTo(next()) * 1000;
+        interval_ms = QDateTime::currentDateTime().msecsTo(next());
     }
     QTimer::singleShot(interval_ms,
                        Qt::VeryCoarseTimer,
@@ -282,6 +284,8 @@ QCron::
 next(QDateTime dt)
 {
     if (dt.isNull()) return next();
+    // strip out secs and msecs to produce correct time grid
+    dt = dt.addMSecs(-(dt.time().msec() + 1000 * dt.time().second()));
     dt = dt.addSecs(60);
     while (!match(dt))
     {
