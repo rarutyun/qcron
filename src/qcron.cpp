@@ -18,12 +18,15 @@ QCron()
 /******************************************************************************/
 
 QCron::
-QCron(const QString & pattern)
+QCron(const QString & pattern, bool parseOnly)
     : _expression(pattern)
 {
     _init();
     _parsePattern(pattern);
-    _checkState();
+    if (!parseOnly)
+    {
+        _checkState();
+    }
 }
 
 /******************************************************************************/

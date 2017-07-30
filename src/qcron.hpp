@@ -11,7 +11,7 @@ class QCron : public QObject
 
 public:
     QCron();
-    QCron(const QString & pattern);
+    QCron(const QString & pattern, bool parseOnly = false);
     ~QCron();
 
     // Accessors.
