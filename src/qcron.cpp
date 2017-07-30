@@ -281,6 +281,7 @@ QDateTime
 QCron::
 next(QDateTime dt)
 {
+    if (dt.isNull()) return next();
     dt = dt.addSecs(60);
     while (!match(dt))
     {
