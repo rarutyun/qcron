@@ -64,7 +64,7 @@ _checkState(QDateTime after)
     }
     else
     {
-        after.addSecs(60); // add one minute because we need `after`
+        after = after.addSecs(60); // add one minute because we need `after`
     }
     int interval_ms = 0;
     if (match(after))
