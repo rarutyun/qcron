@@ -34,12 +34,10 @@ public:
 
 signals:
     void activated();
-    void deactivated();
 
 private:
     QString _expression;
     bool _is_valid;
-    bool _is_active;
     QString _error;
     QCronField _fields[6];
 

@@ -43,7 +43,6 @@ QCron::
 _init()
 {
     _is_valid = true;
-    _is_active = false;
     _fields[0].setField(MINUTE);
     _fields[1].setField(HOUR);
     _fields[2].setField(DOM);
@@ -72,18 +71,8 @@ _checkState(QDateTime after)
     if (match(after))
     {
         emit activated();
-        _is_active = true;
-        interval_ms = 1000 * 60; // one minute
     }
-    else
-    {
-        if (_is_active)
-        {
-            emit deactivated();
-            _is_active = false;
-        }
-        interval_ms = QDateTime::currentDateTime().msecsTo(next());
-    }
+    interval_ms = QDateTime::currentDateTime().msecsTo(next());
     QTimer::singleShot(interval_ms,
                        Qt::VeryCoarseTimer,
                        this,
