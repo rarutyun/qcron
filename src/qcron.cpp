@@ -68,15 +68,23 @@ _checkState(QDateTime after)
     // strip out secs and msecs to produce correct time grid
     after = after.addMSecs(-(after.time().msec() + 1000 * after.time().second()));
     int interval_ms = 0;
-    if (match(after))
+    // safe in case of long time jump (hibernation, etc.)
+    if (match(after) || ((!_prev.isNull()) && (next(_prev).msecsTo(QDateTime::currentDateTime()) > 1000 * 60 /* one minute */)))
     {
         emit activated();
     }
     interval_ms = QDateTime::currentDateTime().msecsTo(next());
+    if (interval_ms <= 0)
+    {
+        interval_ms = 1000 * 60;
+    }
     QTimer::singleShot(interval_ms,
                        Qt::VeryCoarseTimer,
                        this,
                        SLOT(_checkState()));
+
+    // store current time to detect time jumps
+    _prev = QDateTime::currentDateTime();
 }
 
 /******************************************************************************/

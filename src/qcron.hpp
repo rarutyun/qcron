@@ -40,6 +40,7 @@ private:
     bool _is_valid;
     QString _error;
     QCronField _fields[6];
+    QDateTime _prev;
 
     void _init();
     void _setError(const QString & error);
