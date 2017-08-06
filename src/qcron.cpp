@@ -78,6 +78,10 @@ _checkState(QDateTime after)
     {
         interval_ms = 1000 * 60;
     }
+    if (interval_ms > 1000 * 60 * 5)
+    {
+        interval_ms = 1000 * 60 * 5;
+    }
     QTimer::singleShot(interval_ms,
                        Qt::VeryCoarseTimer,
                        this,
